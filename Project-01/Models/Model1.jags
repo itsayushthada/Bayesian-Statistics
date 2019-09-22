@@ -1,0 +1,33 @@
+model {
+    # Actual Bayesian Model Likelihood
+    for(i in 1:length(result)){
+        result[i] ~ dbern(p[i])
+        logit(p[i]) = int                       + 
+                      beta[01]*isSeasonA[i]     + 
+                      beta[02]*isSeasonB[i]     + 
+                      beta[03]*isSeasonC[i]     + 
+                      beta[04]*isSeasonD[i]     + 
+                      beta[05]*age[i]           + 
+                      beta[06]*isChildD[i]      +
+                      beta[07]*isTrauma[i]      +
+                      beta[08]*isSurgery[i]     +
+                      beta[09]*isHighFeverA[i]  +
+                      beta[10]*isHighFeverB[i]  +
+                      beta[11]*isHighFeverC[i]  +
+                      beta[12]*isAlchoholicA[i] +
+                      beta[13]*isAlchoholicB[i] +
+                      beta[14]*isAlchoholicC[i] +
+                      beta[15]*isAlchoholicD[i] +
+                      beta[16]*isAlchoholicE[i] +
+                      beta[17]*isSmokerA[i]     +
+                      beta[18]*isSmokerB[i]     +
+                      beta[19]*isSmokerC[i]     +
+                      beta[20]*sitting[i]   
+    }
+
+    # Priors
+    for (j in 1:20){
+        beta[j] ~ ddexp(0.0, sqrt(2.0)) # Has variance 1
+    }
+    int ~ dnorm(0.0, 1.0/1.0e6)
+}
