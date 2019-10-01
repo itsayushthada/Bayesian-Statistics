@@ -1,0 +1,28 @@
+model {
+    # Actual Bayesian Model Likelihood
+    for(i in 1:length(result)){
+        result[i] ~ dbern(p[i])
+        logit(p[i]) = mu [  seasonGrp[i], 
+                            ageGrp[i] ,
+                            childDisGrp[i], 
+                            traumaGrp[i], 
+                            surgeryGrp[i], 
+                            alcoholGrp[i], 
+                            smokingGrp[i], 
+                            sittingGrp[i],
+                         ]
+    }
+
+    # Priors
+    for (t in 1:max(seasonGrp)){
+        for (j in 1:max(ageGrp)){
+            for (k in 1:max(childDisGrp)){
+                for (l in 1:max(traumaGrp)){
+                    for (m in 1:max(surgeryGrp)){
+                        for (n in 1:max(alcoholGrp)){
+                            for (o in 1:max(smokingGrp)){
+                                for (p in 1:max(sittingGrp)){
+                                    mu[t, j, k, l, m, n, o, p] ~ ddexp(0.0, sqrt(2.0)) # Has variance 1
+    }}}}}}}}
+    
+}
